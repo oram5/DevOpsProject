@@ -20,8 +20,20 @@
         text-align: center;
         font-size: 100px;
       }
+      .button{
+      	position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      	border: none;
+ 		    color: black;
+ 		    padding: 15px 32px;
+  		  font-size: 20px;
+  		  cursor: pointer;
+        background-color: #008CBA;
+      }
     </style>
-  <button type="button" onClick="Refresh()">new game</button>
+    <button class="button button1" onClick="Refresh()">New Game</button>
   </body>
 
   <script>
