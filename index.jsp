@@ -21,6 +21,7 @@
         font-size: 100px;
       }
     </style>
+    <button type="button" onClick="window.location.new game();">refresh</button>
   </body>
 
   <script>
