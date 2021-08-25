@@ -4,7 +4,6 @@
  <title> greedy snake</title>
  </head>
 <body>
- <div>
  <style>
   #map{
    width: 400px;
@@ -182,6 +181,5 @@
    document.onkeydown  =Keydown; // get the direction key
   }
  </script>
-</div>
 </body>
 </html>
