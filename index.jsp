@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
  <title> greedy snake</title>
+ </head>
+<body>
+ <div>
  <style>
   #map{
    width: 400px;
@@ -180,8 +182,6 @@
    document.onkeydown  =Keydown; // get the direction key
   }
  </script>
-</head>
-<body>
-<div></div>
+</div>
 </body>
 </html>
