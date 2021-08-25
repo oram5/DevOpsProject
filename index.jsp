@@ -1,7 +1,7 @@
 <html><head>
 <title>Simple JSP
 </title></head>
-<body>(ai.jsp)
+<body>
 <%
 out.println("<hi>JSP</hi>");
 
