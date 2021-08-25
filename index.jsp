@@ -1,139 +1,187 @@
-<%@ page import = "java.util.*" %><?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html 
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content='text/html; charset=UTF-8'/>
-    <meta http-equiv="Content-Style-Type" content="text/css"/>
-    <link rel="stylesheet" media="screen" type="text/css" title="Preferred" href="number-guess.css"/>
-    <title>JSP Number Guess</title>
+ <meta charset="UTF-8">
+ < title > greedy snake
+ <style>
+  #map{
+   width: 400px;
+   height: 400px;
+   border: 1px solid black;
+  }
+  /*Map color*/
+  .divMap{
+   width: 18px;
+   height: 18px;
+   margin: 1px;
+   background-color: yellow;
+   float: left;
+  }
+  /*Snake color*/
+  .divSnake{
+    width: 18px;
+    height: 18px;
+    margin: 1px;
+    background-color: red;
+    float: left;
+   }
+  /*Food color*/
+  .divFood{
+   width: 18px;
+   height: 18px;
+   margin: 1px;
+   background-color: green;
+   float: left;
+  }
+ </style>
+ <script>
+  var mapX=20;
+  Var MAPY = 20; // map boundaries, horizontal and vertical div cells
+  Var arramap = new array(); // map array
+  Var snackex = [4,5,6,7], snackey = [2,2,2,2]; // snake body initialization coordinate value
+  Var foodx, Foody; // create food coordinates
+  Var keycode = 39; // the snake moves in the right direction by default
+
+  //Create a map
+  function createMap() {
+   //Get map outline div
+   var map=document.getElementById("map");
+   //Map creation div small grid, 20 horizontal and vertical
+   for(y=0;y<mapY;y++)
+   {
+    arrMap[y]= new Array();
+    for(x=0;x<mapX;x++)
+    {
+     //Div lattice
+     var div =document.createElement("div");
+     div.className= "Divmap"; // initialization style
+     Arrmap [y] [x] = div; // put div cells into the map array
+     map.appendChild (DIV); // page drawing
+    }
+   }
+  }
+
+  //Create snake body
+  function createSnack(){
+   //Changing a series of continuous div background colors in the map
+   for(i=0;i<snackeX.length;i++)
+   {
+    arrMap[snackeY[i]][snackeX[i]].className ="divSnake";
+   }
+  }
+  //Remove snake body
+  function clearSnack() {
+   for(i=0;i<snackeX.length;i++)
+   {
+    arrMap[snackeY[i]][snackeX[i]].className="divMap";
+   }
+  }
+  //Create food
+  function createFood()
+  {
+   //arrMap[foodY][foodX].className="divFood";
+   Var result; // determine whether to regenerate food
+   do {
+    Result = false; // no overlap by default
+    //Random food coordinates
+    foodX=parseInt(Math.random()*mapX);
+    foodY=parseInt(Math.random()*mapY);
+
+    //Judge that food should not be present in snakes
+    for(i=0;i>snackeX.length;i++) {
+     if(snackeX[1]==foodX&&snackeY[1]==foodY)
+     {
+      Result = true; // need to rebuild
+      break;
+     }
+    }
+
+   }while(result);
+   arrMap[foodY][foodX].className="divFood";
+  }
+  //Snake sport
+  //1. Remove the snake
+  //2. Move the coordinates of the snake body, add the head of the snake and clear the tail
+  function snackMove() {
+   //Remove snake body
+   clearSnack();
+   for (i = 0; i < snackeX.length - 1; i++) {
+    snackeX[i] = snackeX[i + 1];
+    snackeY[i] = snackeY[i + 1];
+   }
+   //Each time the snake head moves, the snake head increases one space, and the keycode matches the keyboard direction
+   switch (keyCode) {
+    Case 37 // left
+     snackeX[snackeX.length - 1]--;
+     break;
+    Case 38 // up
+     snackeY[snackeY.length - 1]--;
+     break;
+    Case 39 // right
+     snackeX[snackeX.length - 1]++;
+     break;
+    Case 40 // down
+     snackeY[snackeY.length - 1]++;
+     break;
+
+   }
+   //Eating food
+   if (snackeX[snackeX.length - 1] == foodX && snackeY[snackeY.length - 1] == foodY)
+   {
+    //Eating food
+    snackeX[snackeX.length]=snackeX[snackeX.length-1];
+    snackeY[snackeY.length]=snackeY[snackeY.length-1];
+    //Rearranging the snake
+    for(i=snackeX.length-1;i>0;i--)
+    {
+     snackeX[i]=snackeX[i-1];
+     snackeY[i]=snackeY[i-1];
+    }
+    Createfood(); // regenerates the next food
+   }
+   //Beyond game borders
+   if(snackeX[snackeX.length-1]<0
+    || snackeX[snackeX.length-1]>mapX-1
+    || snackeY[snackeY.length-1]<0
+    || snackeY[snackeY.length-1]>mapY-1)
+   {
+    Clearinterval (move); // stop moving
+    Alert ("end of game");
+    return ;
+   }
+
+   Createsnack(); // recreate snake body
+  }
+  //Keyboard events
+  function keyDown(){
+   var newKey =  event.keyCode// Keyboard keys
+   if(keyCode == 37 && newKey == 39||
+    keyCode == 39 && newKey == 37||
+    keyCode == 38 && newKey == 40||
+    keyCode == 40 && newKey == 38
+   ) {
+    //No turning around
+    return ;
+   } else if(newKey>=37&&newKey<=40){
+    //The user pressed a direction key
+    keyCode=newKey;
+    }
+    else{
+     //Other buttons
+   }
+  }
+  //Operation
+  window.onload =function () {
+   createMap(); //Create a map
+   createSnack();//Create snake body
+   createFood();//Create food
+
+   Move = setinterval ("snackmove()", 200) // Snake moves
+   document.onkeydown  =Keydown; // get the direction key
+  }
+ </script>
 </head>
 <body>
-
-    <h1>JSP Number Guess</h1>
-
-    <div class='content'>
-<%
-//  Initialize.
-
-    final HttpSession       Sess = request.getSession();
-    final boolean           JustStarted = Sess.isNew();
-    final Integer           No;
-    final ArrayList         Hist;
-
-    if (JustStarted) {
-
-        No = new Integer(new java.util.Random().nextInt(101));
-        Hist = new ArrayList();
-
-        Sess.setAttribute("no", No);
-        Sess.setAttribute("hist", Hist);
-
-    } else {
-
-        No = (Integer) Sess.getAttribute("no");
-        Hist = (ArrayList) Sess.getAttribute("hist");
-    }
-
-//  Process the input.
-
-    final String            GuessStr = request.getParameter("guess");
-    String                  GuessErrorMsg = null;
-    int                     Guess = -1;
-
-    if (!JustStarted) {
-
-        if (GuessStr != null && GuessStr.length() != 0) {
-
-            try {
-
-                Guess = Integer.parseInt(GuessStr);
-                if (Guess < 0 || Guess > 100)
-                    GuessErrorMsg = "The guess must be in the range 0 to 100 (inclusive). " + 
-                        "The number \"" + Guess + "\" is not in that range.";
-                else
-                    Hist.add(new Integer(Guess));
-
-            } catch (NumberFormatException e) {
-                GuessErrorMsg = "The guess \"" + GuessStr + "\" is not a number.";
-            }
-
-        } else
-            GuessErrorMsg = "The guess should be a number, but is blank.";
-    }
-
-//  Produce the dynamic portions of the web page.
-
-    if (Guess != No.intValue()) {
-%>
-        <div class='guess'>
-            <p>A random number between 0 and 100 (inclusive) has been selected.</p>
-<%
-        if (GuessErrorMsg != null) {
-%>
-            <div class='bad-field-error-message'><%= GuessErrorMsg %></div>
-<%
-        }
-%>
-            <form method='post'>
-                <label <%= GuessErrorMsg != null ? "class='bad-field'" : "" %> >Guess the number: 
-                    <input type='text' size='6' name='guess' 
-                    <%= GuessErrorMsg != null ? "value='" + GuessStr + "'" : "" %> />
-                </label>
-                <input type='submit' value='Guess'/>
-            </form>
-        </div>
-<%
-    } else {
-
-        Sess.invalidate();  //  Destroy this session. We're done.
-%>
-        <div class='done'>
-            <p>Correct! The number was <%= No %>. 
-            You guessed it in <%= Hist.size() %> attempts.</p>
-
-            <form method='post'>
-                <input type='submit' value='Play Again'/>
-            </form>
-        </div>
-<%
-    }
-
-    if (Hist.size() > 0) {
-%>
-        <div class='history'>
-            <table class='history'>
-                <thead>
-                    <tr>
-                        <th>No.</th> <th>Guess</th> <th>Result</th>
-                    </tr>
-                </thead>
-                <tbody>
-<%
-        for (int Index = Hist.size() - 1; Index >= 0; Index--) {
-            final Integer           PrevGuess = (Integer) Hist.get(Index);
-            final int               Relationship = PrevGuess.compareTo(No);
-            String                  Result = "Correct!";
-
-            if (Relationship < 0)
-                Result = "Too Low";
-            else if (Relationship > 0)
-                Result = "Too High";
-%>
-                    <tr>
-                        <td><%= Index + 1 %></td> <td><%= PrevGuess %></td> <td class='result'><%= Result %></td>
-                    </tr>
-<%
-        }
-%>
-                </tbody>
-            </table>
-        </div>
-<%
-    }
-%>
-    </div>
-
+<div></div>
 </body>
 </html>
