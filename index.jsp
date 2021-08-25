@@ -36,11 +36,11 @@
  </style>
  <script>
   var mapX=20;
-  Var MAPY = 20; // map boundaries, horizontal and vertical div cells
-  Var arramap = new array(); // map array
-  Var snackex = [4,5,6,7], snackey = [2,2,2,2]; // snake body initialization coordinate value
-  Var foodx, Foody; // create food coordinates
-  Var keycode = 39; // the snake moves in the right direction by default
+  var MAPY = 20; // map boundaries, horizontal and vertical div cells
+  var arramap = new array(); // map array
+  var snackex = [4,5,6,7], snackey = [2,2,2,2]; // snake body initialization coordinate value
+  var foodx, Foody; // create food coordinates
+  var keycode = 39; // the snake moves in the right direction by default
 
   //Create a map
   function createMap() {
@@ -80,7 +80,7 @@
   function createFood()
   {
    //arrMap[foodY][foodX].className="divFood";
-   Var result; // determine whether to regenerate food
+   var result; // determine whether to regenerate food
    do {
     Result = false; // no overlap by default
     //Random food coordinates
