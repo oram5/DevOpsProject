@@ -31,6 +31,7 @@
 
         if(JustStarted){
                 randomNumber = new Integer(new java.util.Random().nextInt(10));
+                <h5><%= +randomNumber%></h5>
                 System.out.println("Random Number : " + randomNumber);
                 Sess.setAttribute("number", randomNumber);
             } else {
