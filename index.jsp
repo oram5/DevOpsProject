@@ -36,11 +36,11 @@
  </style>
  <script>
   var mapX=20;
-  var MAPY = 20; // map boundaries, horizontal and vertical div cells
+  var mapY = 20; // map boundaries, horizontal and vertical div cells
   var arramap = new array(); // map array
-  var snackex = [4,5,6,7], snackey = [2,2,2,2]; // snake body initialization coordinate value
-  var foodx, Foody; // create food coordinates
-  var keycode = 39; // the snake moves in the right direction by default
+  var snackeX = [4,5,6,7], snackey = [2,2,2,2]; // snake body initialization coordinate value
+  var foodX, foodY; // create food coordinates
+  var keyCode = 39; // the snake moves in the right direction by default
 
   //Create a map
   function createMap() {
