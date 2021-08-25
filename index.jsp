@@ -21,7 +21,7 @@
         font-size: 100px;
       }
     </style>
-    <button type="button" onClick="window.location.new game();">refresh</button>
+  <button type="button" onClick="Refresh()">new game</button>
   </body>
 
   <script>
@@ -192,6 +192,9 @@
         // Remove the last part of snake body
         snake.pop();
       }
+    }
+    function Refresh() {
+        window.parent.location = window.parent.location.href;
     }
     
   </script>
