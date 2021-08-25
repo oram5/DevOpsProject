@@ -1,187 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
- <meta charset="UTF-8">
- < title > greedy snake
- <style>
-  #map{
-   width: 400px;
-   height: 400px;
-   border: 1px solid black;
-  }
-  /*Map color*/
-  .divMap{
-   width: 18px;
-   height: 18px;
-   margin: 1px;
-   background-color: yellow;
-   float: left;
-  }
-  /*Snake color*/
-  .divSnake{
-    width: 18px;
-    height: 18px;
-    margin: 1px;
-    background-color: red;
-    float: left;
-   }
-  /*Food color*/
-  .divFood{
-   width: 18px;
-   height: 18px;
-   margin: 1px;
-   background-color: green;
-   float: left;
-  }
- </style>
- <script>
-  var mapX=20;
-  Var MAPY = 20; // map boundaries, horizontal and vertical div cells
-  Var arramap = new array(); // map array
-  Var snackex = [4,5,6,7], snackey = [2,2,2,2]; // snake body initialization coordinate value
-  Var foodx, Foody; // create food coordinates
-  Var keycode = 39; // the snake moves in the right direction by default
+<%@ page import="java.util.ArrayList" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: yubraj
+  Date: 11/20/16
+  Time: 4:27 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <title>Number Guess System</title>
+      <style>
+          .error{ color: red; }
+          .success { color: greenyellow; }
+      </style>
+  </head>
+  <body>
+    <h1>Hello world</h1>
+    <%
+        for(int i = 1; i<=10; i++){ %>
+        <h5><%= +i%></h5>
+    <% } %>
+    <h1>Number Guess System</h1>
+    <p>Guess Number within 1 and 10</p>
 
-  //Create a map
-  function createMap() {
-   //Get map outline div
-   var map=document.getElementById("map");
-   //Map creation div small grid, 20 horizontal and vertical
-   for(y=0;y<mapY;y++)
-   {
-    arrMap[y]= new Array();
-    for(x=0;x<mapX;x++)
-    {
-     //Div lattice
-     var div =document.createElement("div");
-     div.className= "Divmap"; // initialization style
-     Arrmap [y] [x] = div; // put div cells into the map array
-     map.appendChild (DIV); // page drawing
-    }
-   }
-  }
+    <%
+        final HttpSession       Sess = request.getSession();
+        final boolean           JustStarted = Sess.isNew();
+        final Integer           randomNumber;
 
-  //Create snake body
-  function createSnack(){
-   //Changing a series of continuous div background colors in the map
-   for(i=0;i<snackeX.length;i++)
-   {
-    arrMap[snackeY[i]][snackeX[i]].className ="divSnake";
-   }
-  }
-  //Remove snake body
-  function clearSnack() {
-   for(i=0;i<snackeX.length;i++)
-   {
-    arrMap[snackeY[i]][snackeX[i]].className="divMap";
-   }
-  }
-  //Create food
-  function createFood()
-  {
-   //arrMap[foodY][foodX].className="divFood";
-   Var result; // determine whether to regenerate food
-   do {
-    Result = false; // no overlap by default
-    //Random food coordinates
-    foodX=parseInt(Math.random()*mapX);
-    foodY=parseInt(Math.random()*mapY);
+        if(JustStarted){
+                randomNumber = new Integer(new java.util.Random().nextInt(10));
+                System.out.println("Random Number : " + randomNumber);
+                Sess.setAttribute("number", randomNumber);
+            } else {
+                randomNumber = (Integer) Sess.getAttribute("number");
+            }
+    %>
 
-    //Judge that food should not be present in snakes
-    for(i=0;i>snackeX.length;i++) {
-     if(snackeX[1]==foodX&&snackeY[1]==foodY)
-     {
-      Result = true; // need to rebuild
-      break;
-     }
-    }
+    <%
+        String inputText = request.getParameter("number");
+        String errorMsg = null;
+        boolean success = false;
 
-   }while(result);
-   arrMap[foodY][foodX].className="divFood";
-  }
-  //Snake sport
-  //1. Remove the snake
-  //2. Move the coordinates of the snake body, add the head of the snake and clear the tail
-  function snackMove() {
-   //Remove snake body
-   clearSnack();
-   for (i = 0; i < snackeX.length - 1; i++) {
-    snackeX[i] = snackeX[i + 1];
-    snackeY[i] = snackeY[i + 1];
-   }
-   //Each time the snake head moves, the snake head increases one space, and the keycode matches the keyboard direction
-   switch (keyCode) {
-    Case 37 // left
-     snackeX[snackeX.length - 1]--;
-     break;
-    Case 38 // up
-     snackeY[snackeY.length - 1]--;
-     break;
-    Case 39 // right
-     snackeX[snackeX.length - 1]++;
-     break;
-    Case 40 // down
-     snackeY[snackeY.length - 1]++;
-     break;
+        if(!JustStarted) {
+            if (inputText != null && inputText.length() > 0) {
+                int myNumber = Integer.parseInt(inputText);
+                if (randomNumber != myNumber) {
+                    if (myNumber > randomNumber)
+                        errorMsg = "Number too large!";
+                    else
+                        errorMsg = "Number too Low!";
+                } else {
+                    errorMsg = "Congrats! you win";
+                    success = true;
+                }
+            }
+        }
+    %>
 
-   }
-   //Eating food
-   if (snackeX[snackeX.length - 1] == foodX && snackeY[snackeY.length - 1] == foodY)
-   {
-    //Eating food
-    snackeX[snackeX.length]=snackeX[snackeX.length-1];
-    snackeY[snackeY.length]=snackeY[snackeY.length-1];
-    //Rearranging the snake
-    for(i=snackeX.length-1;i>0;i--)
-    {
-     snackeX[i]=snackeX[i-1];
-     snackeY[i]=snackeY[i-1];
-    }
-    Createfood(); // regenerates the next food
-   }
-   //Beyond game borders
-   if(snackeX[snackeX.length-1]<0
-    || snackeX[snackeX.length-1]>mapX-1
-    || snackeY[snackeY.length-1]<0
-    || snackeY[snackeY.length-1]>mapY-1)
-   {
-    Clearinterval (move); // stop moving
-    Alert ("end of game");
-    return ;
-   }
-
-   Createsnack(); // recreate snake body
-  }
-  //Keyboard events
-  function keyDown(){
-   var newKey =  event.keyCode// Keyboard keys
-   if(keyCode == 37 && newKey == 39||
-    keyCode == 39 && newKey == 37||
-    keyCode == 38 && newKey == 40||
-    keyCode == 40 && newKey == 38
-   ) {
-    //No turning around
-    return ;
-   } else if(newKey>=37&&newKey<=40){
-    //The user pressed a direction key
-    keyCode=newKey;
-    }
-    else{
-     //Other buttons
-   }
-  }
-  //Operation
-  window.onload =function () {
-   createMap(); //Create a map
-   createSnack();//Create snake body
-   createFood();//Create food
-
-   Move = setinterval ("snackmove()", 200) // Snake moves
-   document.onkeydown  =Keydown; // get the direction key
-  }
- </script>
-</head>
-<body>
-<div></div>
-</body>
+    <div>
+        <% if(errorMsg != null){ %>
+            <p class="<% if(success){ %>
+                        success
+                       <% }else{ %>
+                        error
+                        <% } %>
+                      ">
+                <%= errorMsg %>
+            </p>
+        <% } %>
+        <form method="post">
+            <label for="number">Enter the Number : </label> <input type="tex" name="number" id="number" maxlength="3">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+  </body>
 </html>
