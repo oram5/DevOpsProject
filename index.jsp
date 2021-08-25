@@ -4,7 +4,7 @@
   	<title>Snake Game</title>
   </head>
 
-  <body>
+  <body style="background-color:powderblue;">
 
     <div id="score">0</div>
     <canvas id="snakeboard" width="400" height="400"></canvas>
