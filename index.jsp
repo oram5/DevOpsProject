@@ -35,6 +35,7 @@
    float: left;
   }
  </style>
+ </body>
  <script>
   var mapX=20;
   var mapY = 20; // map boundaries, horizontal and vertical div cells
@@ -181,5 +182,4 @@
    document.onkeydown  =Keydown; // get the direction key
   }
  </script>
-</body>
 </html>
