@@ -49,13 +49,13 @@
    //Map creation div small grid, 20 horizontal and vertical
    for(y=0;y<mapY;y++)
    {
-    arrMap[y]= new Array();
+    arrMap[y]= new array();
     for(x=0;x<mapX;x++)
     {
      //Div lattice
      var div =document.createElement("div");
      div.className= "Divmap"; // initialization style
-     Arrmap [y] [x] = div; // put div cells into the map array
+     arrMap [y] [x] = div; // put div cells into the map array
      map.appendChild (DIV); // page drawing
     }
    }
