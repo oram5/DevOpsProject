@@ -46,7 +46,6 @@
         if(!JustStarted) {
             if (inputText != null && inputText.length() > 0) {
                 int myNumber = Integer.parseInt(inputText);
-                <h5><%= +randomNumber%></h5>
                 if (randomNumber != myNumber) {
                     if (myNumber > randomNumber)
                         errorMsg = "Number too large!";
