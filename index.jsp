@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
  <meta charset="UTF-8">
- <title> greedy snake
+ <title> greedy snake</title>
  <style>
   #map{
    width: 400px;
